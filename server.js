@@ -1,4 +1,7 @@
 const express = require("express");
+//Import routes definded in routes folder
+const routes = require('./routes');
+
 const logger = require("morgan");
 const mongoose = require("mongoose");
 
@@ -15,6 +18,9 @@ app.use(express.json());
 app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", { useNewUrlParser: true });
+
+// turn on routes
+app.use(routes);
 
 
 app.listen(PORT, () => {

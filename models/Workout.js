@@ -5,7 +5,6 @@ const Schema = mongoose.Schema;
 const workoutSchema = new Schema(
     {
         // CODE HERE
-
         day: {
             type: Date,
             default: () => new Date()
