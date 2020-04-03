@@ -425,6 +425,10 @@ form > button {
   padding: 10px;
 }
 
+.dashboardURL{
+  padding: 15px;
+}
+
 @keyframes toast {
   50% {
     opacity: 1;

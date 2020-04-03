@@ -25,7 +25,7 @@ router.get('/api/workouts/:id', ({ params }, res) => {
 });
 
 
-router.post('/api/workouts', ({body}, res) => {
+router.post('/api/workouts', ({ body }, res) => {
 
     Workout.create(body)
         .then(workoutData => {
@@ -39,9 +39,9 @@ router.post('/api/workouts', ({body}, res) => {
 });
 
 // update workout by id
-router.put('/api/workouts/:id', ({ params }, res) => {
-    //Workout.findByIdAndUpdate(params.id, { $push: { exercises: _id } })
-    Workout.findByIdAndUpdate(params.id)
+router.put('/api/workouts/:id', ({ body, params }, res) => {
+    Workout.findByIdAndUpdate(params.id, { $push: { exercises: body } })
+        //Workout.findByIdAndUpdate(params.id)
         .then(workoutData => res.json(workoutData))
         .catch(err => {
             console.log(err);
@@ -60,15 +60,14 @@ router.delete('/api/workouts/:id', ({ params }, res) => {
         });
 });
 
+router.get('/api/workout/range', (req, res) => {
 
-router.get('/api/workouts/range', (req, res) => {
-
-    Workout.find({}).limit(7)
+    Workout.find().sort({date: -1}).limit(7)
         .then(workoutData => {
             console.log(workoutData);
             res.json(workoutData);
         })
-        .catch(err => {
+        .catch(err => { 
             console.log(err);
             res.json(err);
         });

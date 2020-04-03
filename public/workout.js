@@ -1,7 +1,16 @@
 
 //get last workout
 async function initWorkout() {
+  
+  console.log("-----------workout.js-----------------------");
+  console.log("-----------inside initWorkout");
+  console.log("-----------inside initWorkout ---calling getLastWorkout from api.js--- ");
+  
+
   const lastWorkout = await API.getLastWorkout();
+  console.log("-------after await API.getLastWorkout()");
+  console.log("-------this did not get executed onload, after line 10 it went into index.js");
+
   console.log("Last workout:", lastWorkout);
   if (lastWorkout) {
     //add the id to "continue workout"
@@ -9,27 +18,38 @@ async function initWorkout() {
       .querySelector("a[href='/exercise?']")
       .setAttribute("href", `/exercise?id=${lastWorkout._id}`);
 
+      console.log("-----------inside initWorkout ---calling tallyExercises--- ");
     const workoutSummary = {
       date: formatDate(lastWorkout.day),
-      totalDuration: lastWorkout.totalDuration,
+      //totalDuration: lastWorkout.totalDuration,
       numExercises: lastWorkout.exercises.length,
       ...tallyExercises(lastWorkout.exercises)
     };
 
+    console.log("-----------inside initWorkout ---calling renderWorkoutSummary--- ");
     renderWorkoutSummary(workoutSummary);
   } else {
+    console.log("-----------inside initWorkout ---calling renderNoWorkoutText--- ");
     renderNoWorkoutText()
   }
 }
 
 function tallyExercises(exercises) {
+
+  console.log("-----------workout.js-----------------------");
+  console.log("-----------inside tallyExercises");
+  
+
   const tallied = exercises.reduce((acc, curr) => {
     if (curr.type === "resistance") {
       acc.totalWeight = (acc.totalWeight || 0) + curr.weight;
       acc.totalSets = (acc.totalSets || 0) + curr.sets;
       acc.totalReps = (acc.totalReps || 0) + curr.reps;
+      //totalDuration: lastWorkout.totalDuration,
+      acc.totalDuration = (acc.totalDuration || 0) + curr.duration;
     } else if (curr.type === "cardio") {
       acc.totalDistance = (acc.totalDistance || 0) + curr.distance;
+      acc.totalDuration = (acc.totalDuration || 0) + curr.duration;
     }
     return acc;
   }, {});
@@ -37,6 +57,11 @@ function tallyExercises(exercises) {
 }
 
 function formatDate(date) {
+  
+  console.log("-----------workout.js-----------------------");
+  console.log("-----------inside formatDate");
+  
+  
   const options = {
     weekday: "long",
     year: "numeric",
@@ -49,6 +74,10 @@ function formatDate(date) {
 
 function renderWorkoutSummary(summary) {
   const container = document.querySelector(".workout-stats");
+
+  console.log("-----------workout.js-----------------------");
+  console.log("-----------inside renderWorkoutSummary");
+  
 
   const workoutKeyMap = {
     date: "Date",
@@ -75,6 +104,10 @@ function renderWorkoutSummary(summary) {
 }
 
 function renderNoWorkoutText() {
+
+  console.log("-----------workout.js-----------------------");
+  console.log("-----------inside renderNoWorkoutText");
+  
   const container = document.querySelector(".workout-stats");
   const p = document.createElement("p");
   const strong = document.createElement("strong");

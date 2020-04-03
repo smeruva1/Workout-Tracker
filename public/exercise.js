@@ -20,7 +20,13 @@ let shouldNavigateAway = false;
 async function initExercise() {
   let workout;
 
+  console.log("-----------excercise.js-----------------------");
+  console.log("-----------inside initExercise");
+
   if (location.search.split("=")[1] === undefined) {
+    console.log("-----------excercise.js-----------------------");
+    console.log("-----------inside initExercise--calling createWorkout from api.js");
+
     workout = await API.createWorkout()
     console.log(workout)
   }
@@ -34,6 +40,9 @@ initExercise();
 
 function handleWorkoutTypeChange(event) {
   workoutType = event.target.value;
+
+  console.log("-----------excercise.js-----------------------");
+  console.log("-----------inside handleWorkoutTypeChange");
 
   if (workoutType === "cardio") {
     cardioForm.classList.remove("d-none");
@@ -51,6 +60,9 @@ function handleWorkoutTypeChange(event) {
 
 function validateInputs() {
   let isValid = true;
+
+  console.log("-----------excercise.js-----------------------");
+  console.log("-----------inside validateInputs");
 
   if (workoutType === "resistance") {
     if (nameInput.value.trim() === "") {
@@ -98,6 +110,9 @@ function validateInputs() {
 async function handleFormSubmit(event) {
   event.preventDefault();
 
+  console.log("-----------excercise.js-----------------------");
+  console.log("-----------inside handleFormSubmit");
+
   let workoutData = {};
 
   if (workoutType === "cardio") {
@@ -114,12 +129,18 @@ async function handleFormSubmit(event) {
     workoutData.duration = Number(resistanceDurationInput.value.trim());
   }
 
+  console.log("-----------excercise.js-----------------------");
+  console.log("-----------inside handleFormSubmit --calling addExercise from app.js");
+
   await API.addExercise(workoutData);
   clearInputs();
   toast.classList.add("success");
 }
 
 function handleToastAnimationEnd() {
+  console.log("-----------excercise.js-----------------------");
+  console.log("-----------inside handleToastAnimationEnd---");
+
   toast.removeAttribute("class");
   if (shouldNavigateAway) {
     location.href = "/";
@@ -127,6 +148,9 @@ function handleToastAnimationEnd() {
 }
 
 function clearInputs() {
+  console.log("-----------excercise.js-----------------------");
+  console.log("-----------inside clearInputs---");
+
   cardioNameInput.value = "";
   nameInput.value = "";
   setsInput.value = "";

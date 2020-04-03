@@ -7,16 +7,16 @@ const API = {
       console.log(err)
     }
     const json = await res.json();
-    console.log("----------------------------------");
-    console.log("inside getLastWorkout");
+    console.log("-------------api.js---------------------");
+    console.log("---------inside getLastWorkout");
     console.log(json);
     console.log('================');
     console.log(json[json.length - 1]);
     return json[json.length - 1];
   },
   async addExercise(data) {
-    console.log("----------------------------------");
-    console.log("inside addExercise");
+    console.log("---------------api.js---------------------");
+    console.log("----------inside addExercise");
     console.log(data);
     console.log(JSON.stringify(data));
 
@@ -34,8 +34,8 @@ const API = {
   },
   async createWorkout(data = {}) {
     
-    console.log("----------------------------------");
-    console.log("inside createWorkout");
+    console.log("-----------------api.js-------------------");
+    console.log("-----------inside createWorkout");
     console.log(data);
     console.log(data);
     console.log(JSON.stringify(data));
@@ -52,14 +52,14 @@ const API = {
   },
 
   async getWorkoutsInRange() {
-    console.log("----------------------------------");
-    console.log("inside getWorkoutsInRange");
-    console.log(data);
-
-
-    const res = await fetch(`/api/workouts/range`);
+    console.log("-----------api.js-----------------------");
+    console.log("-----------inside getWorkoutsInRange");
+    
+    const res = await fetch(`/api/workout/range`);
     const json = await res.json();
 
+    console.log(json);
+    
     return json;
   },
 };
